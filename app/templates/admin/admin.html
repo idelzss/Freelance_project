@@ -1,0 +1,13 @@
+{% extends 'admin/base.html' %}
+
+{% block title %}
+ADMIN DASHBOARD
+{% endblock %}
+
+{% block content %}
+    <p><strong>Create profession</strong>
+    <form method="POST" action="{{ url_for('admin.create_profession') }}">
+    <button class="button is-link">Create</button>
+    </form>
+    <h3>Coming soon....</h3>
+{% endblock %}

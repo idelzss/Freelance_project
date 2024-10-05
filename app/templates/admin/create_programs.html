@@ -1,0 +1,63 @@
+{% extends 'admin/base.html' %}
+
+{% block title %}
+    Admin Create Program
+{% endblock %}
+
+{% block content %}
+    {% with msgs = get_flashed_messages(with_categories=True) %}
+        {% for category, message in msgs %}
+            {% if category == 'error' %}
+                <div class="flash-error">
+                    {{ message | safe }}
+                </div>
+            {% else %}
+                <div class="success">
+                    {{ message | safe }}
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endwith %}
+
+    <div class="forms">
+    <form method="POST" action="{{ url_for('admin.create_program') }}">
+        {{ form.hidden_tag() }}
+
+        <div class="form-group">
+            {{ form.title.label }}
+            {{ form.title(class_="form-control") }}
+            {% for error in form.title.errors %}
+                <div class="alert alert-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="form-group">
+            {{ form.description.label }}
+            {{ form.description(class_="form-control") }}
+            {% for error in form.description.errors %}
+                <div class="alert alert-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="form-group">
+            {{ form.video_url.label }}
+            {{ form.video_url(class_="form-control") }}
+            {% for error in form.video_url.errors %}
+                <div class="alert alert-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="form-group">
+            {{ form.profession.label }}
+            {{ form.profession(class_="form-control") }}
+            {% for error in form.profession.errors %}
+                <div class="alert alert-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <br><br>
+        <button type="submit" class="btn btn-primary">Create Program</button>
+    </form>
+</div>
+
+{% endblock %}

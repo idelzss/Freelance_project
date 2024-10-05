@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    find_job
+{% endblock %}
+
+{% block content %}
+    {% with msgs = get_flashed_messages(with_categories=True) %}
+        {% for category, message in msgs %}
+            {% if category == 'error' %}
+                <div class="flash-error">
+                    {{ message | safe }}
+                </div>
+            {% else %}
+                <div class="success">
+                    {{ message | safe }}
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endwith %}
+
+
+     <h3>Profession list:</h3>
+    <ul>
+        {% for profession in professions %}
+            <li>
+                <a href="{{ url_for('find_job', profession_id=profession.id) }}">
+                    {{ profession.name }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

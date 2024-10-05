@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}
+All Send Works
+{% endblock %}
+
+{% block content %}
+    <h1>All send works</h1>
+
+    {% if works %}
+        <div class="content">
+            {% for work in works %}
+                <div class="box">
+                    <h2 class="title is-4">{{ work.description }}</h2>
+                    <p><strong>GitHub URL:</strong> {{ work.GitHub_Url }}</p>
+                    <p><strong>Freelancer Name:</strong> {{ work.freelancer_id.name }}</p>
+                    <form method="POST" action="{{ url_for('employer.accept_work', id=work.id   ) }}">
+                    <button class="button is-link">Accept</button>
+                     </form>
+                    <form method="POST" action="{{ url_for('employer.not_accept_work', id=work.id) }}">
+                    <button class="button is-link">Not Accept</button>
+                     </form>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>Nobody send work!.</p>
+    {% endif %}
+{% endblock %}

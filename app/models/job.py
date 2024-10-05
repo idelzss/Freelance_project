@@ -1,8 +1,13 @@
 from .base import BASE
-from sqlalchemy import Column, String, Integer, ForeignKey, Text, DateTime
-from sqlalchemy.orm import relationship
+import enum
+from sqlalchemy import Column, String, Integer, ForeignKey, Text, DateTime, Enum
 from datetime import datetime
+from sqlalchemy.orm import relationship
 
+
+class StatusEnumJob(enum.Enum):
+    not_done = "Not done"
+    submitted = "Submitted"
 
 
 
@@ -13,11 +18,10 @@ class Job(BASE):
     id = Column(Integer, primary_key=True)
     title = Column(String(100), nullable=False)
     description = Column(Text, nullable=False)
-    job_type = Column(String(50), nullable=False)
-    profession_id = Column(Integer, ForeignKey('professions.id'), nullable=False)
-    employer_id = Column(Integer, ForeignKey('users.id'), nullable=False)
-    freelancer_id = Column(Integer, ForeignKey('users.id'))
-    date_posted = Column(DateTime, nullable=False, default=datetime.utcnow)
-    employer = relationship('User', foreign_keys=[employer_id], backref='posted_jobs')
-    freelancer = relationship('User', foreign_keys=[freelancer_id], backref='assigned_jobs')
+    profession_id = Column(Integer, ForeignKey("professions.id"), nullable=False)
+    employer_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    freelancer_id = Column(Integer, ForeignKey("users.id"), nullable=True)
+    status = Column(Enum(StatusEnumJob), default=StatusEnumJob.not_done, nullable=False)
 
+    employer = relationship("User", foreign_keys=[employer_id])
+    profession = relationship("Profession", foreign_keys=[profession_id])

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Jobs
+{% endblock %}
+
+{% block content %}
+    <h1>All jobs</h1>
+    {% if current_user.admin == 1 or current_user.user_type == UserTypeEnum.employer %}
+    <a href="{{ url_for('employer.create_job') }}" class="button is-primary">Create new job</a>
+    {% endif %}
+
+    {% if jobs %}
+        <div class="content">
+            {% for job in jobs %}
+                <div class="box">
+                    <h2 class="title is-4">{{ job.title }}</h2>
+                    <p>{{ job.description }}</p>
+                    <p><strong>Profession:</strong> {{ job.profession.name }}</p>
+                    <p><strong>Employer Name:</strong> {{ job.employer.name }}</p>
+                    <form method="POST" action="{{ url_for('take_job', job_id=job.id) }}">
+                    <button class="button is-link">Take job</button>
+                     </form>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No jobs available for the selected profession.</p>
+    {% endif %}
+{% endblock %}

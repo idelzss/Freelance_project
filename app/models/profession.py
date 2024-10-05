@@ -9,5 +9,4 @@ class Profession(BASE):
     id = Column(Integer, primary_key=True)
     name = Column(String(100), nullable=False)
     description = Column(Text, nullable=False)
-    programs = relationship('Program', backref='profession')
-    jobs = relationship('Job', backref='profession')
+    programs = relationship("Program", backref="profession")

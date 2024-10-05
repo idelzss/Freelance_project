@@ -10,4 +10,4 @@ class Program(BASE):
     title = Column(String(100), nullable=False)
     description = Column(Text, nullable=False)
     video_url = Column(Text, nullable=True)
-    profession_id = Column(Integer, ForeignKey('professions.id'), nullable=False)
+    profession_id = Column(Integer, ForeignKey("professions.id"), nullable=False)

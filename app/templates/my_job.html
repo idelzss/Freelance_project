@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Programs
+{% endblock %}
+
+{% block content %}
+
+    <h1>My job</h1>
+    {% if jobs %}
+        <div class="content">
+            {% for job in jobs %}
+                <div class="box">
+                    <h2 class="title is-4">{{ job.title }}</h2>
+                    <p>{{ job.description }}</p>
+                    <p><strong>Profession:</strong> {{ job.profession.name }}</p>
+                    <p><strong>Employer Name:</strong> {{ job.employer.name }}</p>
+                    {% for this_description in descriptions %}
+                    <p><strong>Description from employer:</strong> {{ this_description.description }}</p>
+                    {% endfor %}
+                    <form method="POST" action="{{ url_for('release_job', job_id=job.id) }}">
+                        <button class="button is-link">Release job</button>
+                    </form>
+                    <form method="POST" action="{{ url_for('submission', job_id=job.id) }}">
+                        <button class="button is-link">Submission Work</button>
+                    </form>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>You do not have7 active jobs!</p>
+    {% endif %}
+{% endblock %}
